@@ -1,0 +1,31 @@
+import Levenshtein
+
+class AutoCorrect:
+    def __init__(self, known_words):
+        self.known_words = known_words
+
+    def suggest_correction(self, word):
+        if word in self.known_words:
+            return word
+
+        # Find the closest match using Levenshtein distance
+        closest_match = min(self.known_words, key=lambda w: Levenshtein.distance(w, word))
+        return closest_match
+
+def main():
+    # Sample list of known words
+    known_words = ["apple", "banana", "orange", "peach", "pear", "watermelon", "strawberry", "grape"]
+
+    auto_correct = AutoCorrect(known_words)
+
+    while True:
+        user_input = input("Enter a word (type 'exit' to quit): ").lower()
+
+        if user_input == "exit":
+            break
+
+        corrected_word = auto_correct.suggest_correction(user_input)
+        print(f"Corrected: {corrected_word}")
+
+if __name__ == "__main__":
+    main()
