@@ -1,0 +1,34 @@
+from googletrans import Translator
+
+def translate_text(text, source_language, target_language):
+    translator = Translator()
+
+    try:
+        # Translate the text
+        translated_text = translator.translate(text, src=source_language, dest=target_language)
+        return translated_text.text
+    except Exception as e:
+        print(f"Translation error: {e}")
+        return ""
+
+def main():
+    print("Welcome to the Translator App!")
+    print("Supported languages:")
+    print("en (English), es (Spanish), fr (French), de (German), it (Italian), ja (Japanese)")
+
+    while True:
+        user_input = input("Enter text to translate (type 'exit' to quit): ").strip()
+
+        if user_input.lower() == "exit":
+            break
+
+        source_language = input("Enter the source language code: ").lower()
+        target_language = input("Enter the target language code: ").lower()
+
+        translated_text = translate_text(user_input, source_language, target_language)
+
+        if translated_text:
+            print(f"Translated text: {translated_text}")
+
+if __name__ == "__main__":
+    main()
